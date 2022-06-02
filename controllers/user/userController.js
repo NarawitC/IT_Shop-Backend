@@ -1,9 +1,9 @@
 const validator = require('validator');
 
-const { CONFIRMED } = require('../config/constants');
-const { User, Order, OrderItem, Product } = require('../models/index');
+const { CONFIRMED } = require('../../config/constants');
+const { User, Order, OrderItem, Product } = require('../../models/index');
 
-const createError = require('../utils/createError');
+const createError = require('../../utils/createError');
 
 exports.getUserInfo = async (req, res, next) => {
   try {
@@ -117,7 +117,7 @@ exports.updateUserInfo = async (req, res, next) => {
     if (!user) {
       createError('You are unauthorized', 404);
     }
-    res.status(200).json({ text: 'User updated' });
+    res.status(200).json({ message: 'User updated' });
   } catch (err) {
     next(err);
   }
