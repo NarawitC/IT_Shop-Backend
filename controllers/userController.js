@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 const { CONFIRMED } = require('../config/constants');
-const { User, Order, OrderItem } = require('../models/index');
+const { User, Order, OrderItem, Product } = require('../models/index');
 
 const createError = require('../utils/createError');
 
@@ -24,6 +24,44 @@ exports.getUserPurchasedOrders = async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: { status: CONFIRMED, id: req.user.id },
+      include: [
+        {
+          model: OrderItem,
+          attributes: ['id', 'quantity', 'productId'],
+          include: [
+            {
+              model: Product,
+              attributes: ['name', 'price', 'mainPicture'],
+            },
+          ],
+        },
+      ],
+    });
+
+    res.status(200).json({ orders });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getUserOrderFromOrderId = async (req, res, next) => {
+  console.log('first');
+  try {
+    const orderId = req.params.orderId;
+    const orders = await Order.findOne({
+      where: { orderId },
+      include: [
+        {
+          model: OrderItem,
+          attributes: ['id', 'quantity', 'productId'],
+          include: [
+            {
+              model: Product,
+              attributes: ['name', 'price', 'mainPicture'],
+            },
+          ],
+        },
+      ],
     });
 
     res.status(200).json({ orders });
