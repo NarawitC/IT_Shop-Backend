@@ -1,5 +1,5 @@
 const { CONFIRMED } = require('../config/constants');
-const { User, Order } = require('../models/index');
+const { User, Order, OrderItem } = require('../models/index');
 
 const createError = require('../utils/createError');
 
@@ -21,10 +21,23 @@ exports.getUserInfo = async (req, res, next) => {
 exports.getUserPurchasedOrders = async (req, res, next) => {
   try {
     const orders = await Order.findAll({
-      where: { status: CONFIRMED },
+      where: { status: CONFIRMED, id: req.user.id },
     });
 
     res.status(200).json({ orders });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getUserOrderItemsFromOrderId = async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const ordersItems = await OrderItem.findAll({
+      where: { orderId },
+    });
+
+    res.status(200).json({ ordersItems });
   } catch (err) {
     next(err);
   }
