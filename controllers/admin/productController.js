@@ -8,7 +8,6 @@ const createError = require('../../utils/createError');
 
 exports.createProduct = async (req, res, next) => {
   try {
-    console.log(req.body);
     const {
       name,
       description,
@@ -21,53 +20,31 @@ exports.createProduct = async (req, res, next) => {
     // console.log(req.body);
     const imageUrl = {};
     if (req.files) {
-      if (req.files?.mainPicture) {
+      if (req.files.mainPicture) {
         const result = await cloudinary.upload(req.files.mainPicture[0].path);
-        if (req.product?.mainPicture) {
-          const splitted = req.product.mainPicture.split('/');
-          const publicId = splitted[splitted.length - 1].split('.')[0];
-          await cloudinary.destroy(publicId);
-        }
+
         imageUrl.mainPicture = result.secure_url;
       }
       if (req.files.subPicture1) {
         const result = await cloudinary.upload(req.files.subPicture1[0].path);
-        if (req.product.subPicture1) {
-          const splitted = req.product.subPicture1.split('/');
-          const publicId = splitted[splitted.length - 1].split('.')[0];
-          await cloudinary.destroy(publicId);
-        }
+
         imageUrl.subPicture1 = result.secure_url;
       }
       if (req.files.subPicture2) {
         const result = await cloudinary.upload(req.files.subPicture2[0].path);
-        if (req.product.subPicture2) {
-          const splitted = req.product.subPicture2.split('/');
-          const publicId = splitted[splitted.length - 1].split('.')[0];
-          await cloudinary.destroy(publicId);
-        }
+
         imageUrl.subPicture2 = result.secure_url;
       }
       if (req.files.subPicture3) {
         const result = await cloudinary.upload(req.files.subPicture3[0].path);
-        if (req.product.subPicture3) {
-          const splitted = req.product.subPicture3.split('/');
-          const publicId = splitted[splitted.length - 1].split('.')[0];
-          await cloudinary.destroy(publicId);
-        }
+
         imageUrl.subPicture3 = result.secure_url;
       }
       if (req.files.subPicture4) {
         const result = await cloudinary.upload(req.files.subPicture4[0].path);
-        if (req.product.subPicture4) {
-          const splitted = req.product.subPicture4.split('/');
-          const publicId = splitted[splitted.length - 1].split('.')[0];
-          await cloudinary.destroy(publicId);
-        }
         imageUrl.subPicture4 = result.secure_url;
       }
     }
-    console.log(req.files);
 
     if (!name) {
       createError('Product name is invalid', 400);
