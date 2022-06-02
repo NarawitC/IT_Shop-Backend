@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User, Admin } = require('../models/index');
 
 const createError = require('../middlewares/error');
+
 exports.user = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
