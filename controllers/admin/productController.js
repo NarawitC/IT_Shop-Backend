@@ -1,4 +1,5 @@
 const validator = require('validator');
+const fs = require('fs');
 
 const { User, Order, OrderItem, Product } = require('../../models/index');
 
@@ -7,6 +8,17 @@ const createError = require('../../utils/createError');
 
 exports.createProduct = async (req, res, next) => {
   try {
+    console.log(req.body);
+    const {
+      name,
+      description,
+      price,
+      quantity,
+      categoryId,
+      subCategoryId,
+      properties,
+    } = req.body;
+    // console.log(req.body);
     const imageUrl = {};
     if (req.files) {
       if (req.files?.mainPicture) {
@@ -55,15 +67,7 @@ exports.createProduct = async (req, res, next) => {
         imageUrl.subPicture4 = result.secure_url;
       }
     }
-    const {
-      name,
-      description,
-      price,
-      quantity,
-      categoryId,
-      subCategoryId,
-      properties,
-    } = req.body;
+    console.log(req.files);
 
     if (!name) {
       createError('Product name is invalid', 400);
