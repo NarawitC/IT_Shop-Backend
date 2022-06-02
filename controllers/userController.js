@@ -1,4 +1,5 @@
-const { User } = require('../models/index');
+const { CONFIRMED } = require('../config/constants');
+const { User, Order } = require('../models/index');
 
 const createError = require('../utils/createError');
 
@@ -12,6 +13,18 @@ exports.getUserInfo = async (req, res, next) => {
       createError('You are unauthorized', 404);
     }
     res.status(200).json({ user });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getUserPurchasedOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: { status: CONFIRMED },
+    });
+
+    res.status(200).json({ orders });
   } catch (err) {
     next(err);
   }
