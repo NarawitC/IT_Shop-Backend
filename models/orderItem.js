@@ -32,15 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-
-    OrderItem.belongsTo(models.Product, {
-      foreignKey: {
-        name: 'price',
-        allowNull: false,
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
   };
 
   return OrderItem;

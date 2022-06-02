@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         defaultValue: null,
       },
       quantity: {
@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: null,
       },
-      property: {
-        type: DataTypes.STRING,
+      properties: {
+        type: DataTypes.STRING(5000),
         defaultValue: null,
       },
     },
@@ -52,15 +52,6 @@ module.exports = (sequelize, DataTypes) => {
     Product.hasMany(models.OrderItem, {
       foreignKey: {
         name: 'productId',
-        allowNull: false,
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-
-    Product.hasMany(models.OrderItem, {
-      foreignKey: {
-        name: 'price',
         allowNull: false,
       },
       onDelete: 'CASCADE',
