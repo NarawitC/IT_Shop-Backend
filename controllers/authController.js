@@ -11,7 +11,7 @@ const genToken = (payload) => {
   });
 };
 
-exports.userSignup = async (req, res, next) => {
+exports.userSignUp = async (req, res, next) => {
   try {
     const {
       firstName,
@@ -81,7 +81,7 @@ exports.userSignIn = async (req, res, next) => {
   }
 };
 
-exports.adminSignup = async (req, res, next) => {
+exports.adminSignUp = async (req, res, next) => {
   try {
     const { employeeId, email, password, confirmPassword } = req.body;
     if (!email) {
