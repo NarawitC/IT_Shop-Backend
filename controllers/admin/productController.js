@@ -1,7 +1,14 @@
 const validator = require('validator');
 const fs = require('fs');
 
-const { User, Order, OrderItem, Product } = require('../../models/index');
+const {
+  User,
+  Order,
+  OrderItem,
+  Product,
+  Category,
+  SubCategory,
+} = require('../../models/index');
 
 const cloudinary = require('../../utils/cloundinary');
 const createError = require('../../utils/createError');
@@ -204,5 +211,41 @@ exports.updateProduct = async (req, res, next) => {
         fs.unlinkSync(req.files.subPicture4[0].path);
       }
     }
+  }
+};
+
+exports.deleteProduct = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      createError('Product not found', 404);
+    }
+    await product.destroy();
+    res.status(200).json({
+      message: 'Product deleted successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getAllProductInfo = async (req, res, next) => {
+  try {
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Category,
+          attributes: ['name'],
+        },
+        {
+          model: SubCategory,
+          attributes: ['name'],
+        },
+      ],
+    });
+    res.status(200).json(products);
+  } catch (err) {
+    next(err);
   }
 };

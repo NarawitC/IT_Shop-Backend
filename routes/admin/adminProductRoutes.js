@@ -27,4 +27,8 @@ router.patch(
   productController.updateProduct
 );
 
+router.delete('/deleteProduct/:productId', productController.deleteProduct);
+
+router.get('/getAllProductInfo', productController.getAllProductInfo);
+
 module.exports = router;
