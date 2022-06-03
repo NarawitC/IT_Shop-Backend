@@ -44,6 +44,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(5000),
         defaultValue: null,
       },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
     },
     { underscored: true }
   );
