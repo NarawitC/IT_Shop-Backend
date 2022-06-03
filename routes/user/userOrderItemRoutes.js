@@ -11,4 +11,9 @@ router.patch(
   orderItemController.increaseItemByOrderItemId
 );
 
+router.patch(
+  '/decreaseItem/:orderItemId',
+  orderItemController.decreaseItemByOrderItemId
+);
+
 module.exports = router;

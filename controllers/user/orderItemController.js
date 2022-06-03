@@ -49,3 +49,22 @@ exports.increaseItemByOrderItemId = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.decreaseItemByOrderItemId = async (req, res, next) => {
+  try {
+    const { orderItemId } = req.params;
+    const orderItem = await OrderItem.findOne({ where: { id: orderItemId } });
+    if (!orderItem) {
+      createError('Order Item not found', 404);
+    }
+    const updatedOrderItem = await orderItem.update({
+      quantity: orderItem.quantity - 1,
+    });
+    res.status(200).json({
+      message: 'Order Item updated',
+      updatedOrderItem,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
