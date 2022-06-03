@@ -6,6 +6,7 @@ const {
   Category,
   SubCategory,
 } = require('../../models/index');
+const createError = require('../../utils/createError');
 
 exports.getAllUsers = async (req, res) => {
   const users = await User.findAll({
@@ -36,7 +37,12 @@ exports.getAllUsers = async (req, res) => {
       },
     ],
   });
-  res.send(users);
+
+  if (!users) {
+    createError('Users not found', 404);
+  }
+
+  res.status(200).send({ users });
 };
 
 exports.getUserById = async (req, res) => {
@@ -71,5 +77,9 @@ exports.getUserById = async (req, res) => {
       },
     ],
   });
-  res.send(user);
+
+  if (!user) {
+    createError('User not found', 404);
+  }
+  res.status(200).send({ user });
 };

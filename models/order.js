@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       totalPrice: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
       paymentSlip: {
@@ -21,9 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM(IN_CART, PENDING, CONFIRMED),
         defaultValue: IN_CART,
         allowNull: false,
-      },
-      confirmedAdminId: {
-        type: DataTypes.INTEGER,
       },
     },
     { underscored: true }

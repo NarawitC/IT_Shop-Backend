@@ -45,7 +45,6 @@ exports.getUserPurchasedOrders = async (req, res, next) => {
 };
 
 exports.getUserOrderFromOrderId = async (req, res, next) => {
-  console.log('first');
   try {
     const orderId = req.params.orderId;
     const orders = await Order.findOne({
@@ -53,11 +52,11 @@ exports.getUserOrderFromOrderId = async (req, res, next) => {
       include: [
         {
           model: OrderItem,
-          attributes: ['id', 'quantity', 'productId'],
+          attributes: ['id', 'quantity', 'price', 'productId'],
           include: [
             {
               model: Product,
-              attributes: ['name', 'price', 'mainPicture'],
+              attributes: ['name', 'mainPicture'],
             },
           ],
         },

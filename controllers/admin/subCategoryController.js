@@ -1,5 +1,3 @@
-const validator = require('validator');
-
 const { SubCategory, Product } = require('../../models/index');
 
 const createError = require('../../utils/createError');
