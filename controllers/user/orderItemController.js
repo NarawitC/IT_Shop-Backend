@@ -68,3 +68,19 @@ exports.decreaseItemByOrderItemId = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteOrderItemByOrderItemId = async (req, res, next) => {
+  try {
+    const { orderItemId } = req.params;
+    const orderItem = await OrderItem.findOne({ where: { id: orderItemId } });
+    if (!orderItem) {
+      createError('Order Item not found', 404);
+    }
+    await orderItem.destroy();
+    res.status(200).json({
+      message: 'Order Item deleted',
+    });
+  } catch (err) {
+    next(err);
+  }
+}

@@ -16,4 +16,9 @@ router.patch(
   orderItemController.decreaseItemByOrderItemId
 );
 
+router.delete(
+  '/deleteOrderItem/:orderItemId',
+  orderItemController.deleteOrderItemByOrderItemId
+);
+
 module.exports = router;
