@@ -11,6 +11,7 @@ exports.createOrderItemByOrderId = async (req, res, next) => {
   try {
     const { orderId } = req.params;
     const { product, quantity } = req.body;
+    const { price } = await Product.findOne({ where: { id: product.id } });
     const order = await Order.findOne({ where: { id: orderId } });
     if (!order) {
       createError('Order not found', 404);
@@ -20,7 +21,7 @@ exports.createOrderItemByOrderId = async (req, res, next) => {
       orderId,
       productId: product.id,
       quantity,
-      pricePerUnit: product.price,
+      pricePerUnit: price,
     });
     res.status(201).json({
       message: 'Order Item created',
@@ -83,4 +84,4 @@ exports.deleteOrderItemByOrderItemId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};

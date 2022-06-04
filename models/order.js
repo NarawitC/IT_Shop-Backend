@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define(
     'Order',
     {
-      totalPrice: {
+      productPrice: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: false,
@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       paymentSlip: {
         type: DataTypes.STRING,
       },
-      paymentDate: {
+      paymentAt: {
         type: DataTypes.DATE,
+      },
+      deliveryAddress: {
+        type: DataTypes.STRING,
       },
       deliveryPrice: {
         type: DataTypes.INTEGER,
