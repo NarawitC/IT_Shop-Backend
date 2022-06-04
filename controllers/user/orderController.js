@@ -123,4 +123,27 @@ exports.updateOrderToPending = async (req, res, next) => {
   }
 };
 
-
+exports.getInCartOrder = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const order = await Order.findOne({
+      where: {
+        userId: id,
+        status: status.IN_CART,
+      },
+      include: [
+        {
+          model: OrderItem,
+          include: [
+            {
+              model: Product,
+            },
+          ],
+        },
+      ],
+    });
+    res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};
