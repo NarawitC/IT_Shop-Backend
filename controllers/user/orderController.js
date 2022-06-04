@@ -9,7 +9,6 @@ const createError = require('../../utils/createError');
 const fs = require('fs');
 
 const status = require('../../config/constants');
-const calculateTotalPrice = require('../../services/calculateTotalPrice');
 const calculateDeliveryPrice = require('../../services/calculateDeliveryPrice');
 const cloudinary = require('../../utils/cloundinary');
 
@@ -123,3 +122,5 @@ exports.updateOrderToPending = async (req, res, next) => {
     }
   }
 };
+
+
