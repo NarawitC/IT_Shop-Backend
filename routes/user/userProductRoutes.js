@@ -7,5 +7,9 @@ router.get(
   productController.getProductInfoBySearchText
 );
 router.get('/category/:categoryId', productController.getProductByCategoryId);
+router.get(
+  '/subCategory/:subCategoryId',
+  productController.getProductBySubProductId
+);
 
 module.exports = router;

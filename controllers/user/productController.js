@@ -25,4 +25,16 @@ exports.getProductByCategoryId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
+
+exports.getProductBySubProductId = async (req, res, next) => {
+  try {
+    const { subCategoryId } = req.params;
+    const products = await Product.findAll({
+      where: { subCategoryId },
+    });
+    res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+};
