@@ -14,3 +14,15 @@ exports.getProductInfoBySearchText = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getProductByCategoryId = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    const products = await Product.findAll({
+      where: { categoryId },
+    });
+    res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+}
