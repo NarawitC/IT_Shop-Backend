@@ -46,13 +46,13 @@ exports.getUserPurchasedOrders = async (req, res, next) => {
 
 exports.getUserOrderFromOrderId = async (req, res, next) => {
   try {
-    const orderId = req.params.orderId;
+    const { orderId } = req.params;
     const orders = await Order.findOne({
-      where: { orderId },
+      where: { id: orderId },
       include: [
         {
           model: OrderItem,
-          attributes: ['id', 'quantity', 'price', 'productId'],
+          attributes: ['id', 'quantity', 'pricePerUnit', 'productId'],
           include: [
             {
               model: Product,

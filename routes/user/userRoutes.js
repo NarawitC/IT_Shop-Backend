@@ -6,7 +6,6 @@ router.get('/info', userController.getUserInfo);
 router.get('/purchased/orders', userController.getUserPurchasedOrders);
 router.get('/order/:orderId', userController.getUserOrderFromOrderId);
 // router.get('/orderItems/:orderId', userController.getUserOrderItemsFromOrderId);
-
 router.patch('/update', userController.updateUserInfo);
 
 module.exports = router;

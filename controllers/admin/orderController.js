@@ -9,12 +9,11 @@ exports.getAllOrders = async (req, res, next) => {
         {
           model: User,
           attributes: ['id'],
-          include: [
-            {
-              model: OrderItem,
-              attributes: ['id', 'quantity', 'productId', 'price'],
-            },
-          ],
+        },
+
+        {
+          model: OrderItem,
+          attributes: ['id', 'quantity', 'productId', 'pricePerUnit'],
         },
       ],
     });
@@ -29,21 +28,19 @@ exports.getAllOrders = async (req, res, next) => {
 
 exports.getOrderById = async (req, res, next) => {
   try {
-    const orderId = req.params.orderId;
+    const { orderId } = req.params;
     const order = await Order.findOne({
-      where: { orderId },
+      where: { id: orderId },
       include: [
         {
           model: User,
           attributes: { exclude: ['password'] },
+        },
+        {
+          model: OrderItem,
           include: [
             {
-              model: OrderItem,
-              include: [
-                {
-                  model: Product,
-                },
-              ],
+              model: Product,
             },
           ],
         },

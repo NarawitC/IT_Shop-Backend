@@ -23,6 +23,7 @@ exports.user = async (req, res, next) => {
     }
     // console.log(user);
     req.user = user;
+
     next();
   } catch (err) {
     next(err);
