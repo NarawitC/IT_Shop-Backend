@@ -41,6 +41,9 @@ exports.updateOrderToPending = async (req, res, next) => {
       attributes: ['address'],
       where: { id },
     });
+    if (!address) {
+      createError('User address not found', 404);
+    }
     const imageUrl = {};
     if (req.files) {
       if (req.files.paymentSlip) {
