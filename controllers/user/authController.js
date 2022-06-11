@@ -66,12 +66,12 @@ exports.userSignIn = async (req, res, next) => {
     });
 
     if (!user) {
-      createError('invalid credential', 400);
+      createError('Invalid credential', 400);
     }
 
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      createError('invalid credential', 400);
+      createError('Invalid credential', 400);
     }
 
     const token = genToken({ id: user.id });
