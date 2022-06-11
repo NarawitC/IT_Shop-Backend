@@ -8,6 +8,7 @@ const createError = require('../../utils/createError');
 exports.getUserInfo = async (req, res, next) => {
   try {
     const user = await User.findOne({
+      attributes: { exclude: ['password'] },
       where: { id: req.user.id },
     });
     if (!user) {
