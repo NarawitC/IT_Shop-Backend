@@ -24,7 +24,7 @@ exports.getUserInfo = async (req, res, next) => {
 exports.getUserPurchasedOrders = async (req, res, next) => {
   try {
     const orders = await Order.findAll({
-      where: { status: CONFIRMED, id: req.user.id },
+      where: { status: CONFIRMED, userId: req.user.id },
       include: [
         {
           model: OrderItem,
@@ -38,7 +38,7 @@ exports.getUserPurchasedOrders = async (req, res, next) => {
         },
       ],
     });
-
+    console.log(orders);
     res.status(200).json({ orders });
   } catch (err) {
     next(err);
