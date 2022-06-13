@@ -15,3 +15,15 @@ exports.getSubCategoryById = async (req, res, next) => {
     createError("Can't get sub category info", 500);
   }
 };
+
+exports.getSubCategoryByCategoryId = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    const subCategories = await SubCategory.findAll({
+      where: { categoryId },
+    });
+    res.status(200).json({ subCategories });
+  } catch (err) {
+    createError("Can't get sub category info", 500);
+  }
+};
