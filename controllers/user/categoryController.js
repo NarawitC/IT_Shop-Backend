@@ -13,3 +13,16 @@ exports.getAllCategoryInfo = async (req, res, next) => {
     createError("Can't get category info", 500);
   }
 };
+
+exports.getCategoryById = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    const category = await Category.findOne({
+      where: { id: categoryId },
+      include: [{ model: SubCategory }],
+    });
+    res.status(200).json({ category });
+  } catch (err) {
+    createError("Can't get category info", 500);
+  }
+}

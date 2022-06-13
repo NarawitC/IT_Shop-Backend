@@ -6,6 +6,7 @@ const orderRouter = require('./user/userOrderRoutes');
 const orderItemRouter = require('./user/userOrderItemRoutes');
 const productRouter = require('./user/userProductRoutes');
 const categoryRouter = require('./user/userCategoryRoutes');
+const subCategoryRouter = require('./user/userSubCategoryRoutes');
 const authenticate = require('../middlewares/authenticate');
 
 router.use('/auth', userAuthRouter);
@@ -14,5 +15,6 @@ router.use('/order', authenticate.user, orderRouter);
 router.use('/orderItem', authenticate.user, orderItemRouter);
 router.use('/product', authenticate.user, productRouter);
 router.use('/category', authenticate.user, categoryRouter);
+router.use('/subCategory', authenticate.user, subCategoryRouter);
 
 module.exports = router;

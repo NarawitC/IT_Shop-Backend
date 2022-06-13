@@ -1,4 +1,11 @@
-const { User, Order, OrderItem, Product } = require('../../models/index');
+const {
+  User,
+  Order,
+  OrderItem,
+  Product,
+  Category,
+  SubCategory,
+} = require('../../models/index');
 const { Op } = require('sequelize');
 
 const createError = require('../../utils/createError');
@@ -28,9 +35,11 @@ exports.getProductInfoBySearchText = async (req, res, next) => {
 
 exports.getProductByCategoryId = async (req, res, next) => {
   try {
+    console.log(req.params);
     const { categoryId } = req.params;
     const products = await Product.findAll({
       where: { categoryId },
+      include: [{ model: Category }],
     });
     res.status(200).json({ products });
   } catch (err) {
@@ -43,6 +52,7 @@ exports.getProductBySubProductId = async (req, res, next) => {
     const { subCategoryId } = req.params;
     const products = await Product.findAll({
       where: { subCategoryId },
+      include: [{ model: SubCategory }],
     });
     res.status(200).json({ products });
   } catch (err) {
