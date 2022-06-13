@@ -69,8 +69,13 @@ exports.createProduct = async (req, res, next) => {
       createError('Product subCategory is invalid', 400);
     }
 
-    const { mainPicture, subPicture1, subPicture2, subPicture3, subPicture4 } =
-      imageUrl;
+    const {
+      mainPicture = 'https://res.cloudinary.com/narawit/image/upload/v1655109976/IT_Shop/Default%20photo/defaultMainPicture_kyzjrb.png',
+      subPicture1 = 'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+      subPicture2 = 'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+      subPicture3 = 'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+      subPicture4 = 'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+    } = imageUrl;
 
     const product = await Product.create({
       name,
