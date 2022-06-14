@@ -79,7 +79,7 @@ exports.createProduct = async (req, res, next) => {
 
     const product = await Product.create({
       name,
-      description,
+      description: description || null,
       price: Number(price),
       quantity: Number(quantity),
       mainPicture,
@@ -89,7 +89,7 @@ exports.createProduct = async (req, res, next) => {
       subPicture4,
       categoryId,
       subCategoryId,
-      properties,
+      properties: properties || null,
     });
 
     res.status(201).json({
