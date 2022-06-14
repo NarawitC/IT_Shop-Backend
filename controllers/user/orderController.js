@@ -93,8 +93,8 @@ exports.updateOrderToPending = async (req, res, next) => {
       if (OldProduct.quantity < item.quantity) {
         createError('Product quantity is not enough', 400);
       }
-      (OldProduct.quantity = OldProduct.quantity - item.quantity),
-        await OldProduct.save();
+      OldProduct.quantity = OldProduct.quantity - item.quantity;
+      await OldProduct.save();
     });
 
     const deliveryPrice = calculateDeliveryPrice();
