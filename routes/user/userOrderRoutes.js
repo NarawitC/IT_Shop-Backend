@@ -9,6 +9,6 @@ router.patch(
   upload.fields([{ name: 'paymentSlip', maxCount: 1 }]),
   orderController.updateOrderToPending
 );
-router.get('/InCartOrder', orderController.getInCartOrder);
+router.get('/inCartOrder', orderController.getInCartOrder);
 
 module.exports = router;

@@ -10,7 +10,7 @@ const createError = require('../../utils/createError');
 exports.createOrderItemByOrderId = async (req, res, next) => {
   try {
     const { orderId } = req.params;
-    const { product, quantity } = req.body;
+    const { product, inputQuantity } = req.body;
     const { price } = await Product.findOne({ where: { id: product.id } });
     const order = await Order.findOne({ where: { id: orderId } });
     if (!order) {
@@ -20,7 +20,7 @@ exports.createOrderItemByOrderId = async (req, res, next) => {
     const orderItem = await OrderItem.create({
       orderId,
       productId: product.id,
-      quantity,
+      quantity: inputQuantity,
       pricePerUnit: price,
     });
     res.status(201).json({
