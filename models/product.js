@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       description: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.STRING(400),
         defaultValue: null,
       },
       quantity: {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: null,
       },
       properties: {
-        type: DataTypes.STRING(5000),
+        type: DataTypes.STRING(2000),
         defaultValue: null,
       },
       price: {

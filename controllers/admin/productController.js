@@ -26,6 +26,17 @@ exports.createProduct = async (req, res, next) => {
       properties,
     } = req.body;
     // console.log(req.body);
+    if (description) {
+      if (description.length > 400) {
+        createError('Description is less than 400 letter', 400);
+      }
+    }
+    if (properties) {
+      if (properties.length > 2000) {
+        createError('Properties is less than 2000 letter', 400);
+      }
+    }
+
     const imageUrl = {};
     if (req.files) {
       if (req.files.mainPicture) {
