@@ -97,7 +97,11 @@ exports.updateOrderToPending = async (req, res, next) => {
       await OldProduct.save();
     });
 
-    const deliveryPrice = calculateDeliveryPrice();
+    let deliveryPrice = 0;
+    if (orderArr.sum_price > 1000) {
+      deliveryPrice = calculateDeliveryPrice();
+    }
+    calculateDeliveryPrice();
     const result = await order.update(
       {
         status: status.PENDING,
