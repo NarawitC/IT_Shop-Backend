@@ -14,21 +14,27 @@ const cloudinary = require('../../utils/cloundinary');
 
 exports.createOrderAndDeleteInCartOrder = async (req, res, next) => {
   try {
+    const transaction = await sequelize.transaction();
+
     const { id } = req.user;
     const user = await User.findOne({ where: { id } });
     if (!user) {
       createError('User not found', 404);
     }
-    await Order.destroy({
-      where: {
-        status: status.IN_CART,
+    await Order.destroy(
+      {
+        where: {
+          status: status.IN_CART,
+        },
       },
-    });
-    const order = await Order.create({ userId: id });
+      { transaction }
+    );
+    const order = await Order.create({ userId: id }, { transaction });
     res.status(201).json({
       message: 'Order created',
       order,
     });
+    await transaction.commit();
   } catch (err) {
     next(err);
   }
