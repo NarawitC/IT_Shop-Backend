@@ -3,10 +3,7 @@ const router = express.Router();
 const productController = require('../../controllers/user/productController');
 
 router.get('/allProduct', productController.getAllProductInfo);
-router.get(
-  '/searchText/:searchText',
-  productController.getProductInfoBySearchText
-);
+router.get('/searchText/:searchText', productController.getProductBySearchText);
 router.get('/category/:categoryId', productController.getProductByCategoryId);
 router.get(
   '/subCategory/:subCategoryId',

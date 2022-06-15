@@ -21,7 +21,7 @@ exports.getAllProductInfo = async (req, res, next) => {
   }
 };
 
-exports.getProductInfoBySearchText = async (req, res, next) => {
+exports.getProductBySearchText = async (req, res, next) => {
   try {
     const { searchText } = req.params;
     const products = await Product.findAll({
