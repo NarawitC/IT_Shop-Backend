@@ -43,6 +43,7 @@ exports.createOrderAndDeleteInCartOrder = async (req, res, next) => {
 exports.updateOrderToPending = async (req, res, next) => {
   try {
     const { id } = req.user;
+    const { deliveryPrice } = req.body;
     const { address } = await User.findOne({
       attributes: ['address'],
       where: { id },
@@ -103,10 +104,6 @@ exports.updateOrderToPending = async (req, res, next) => {
       await OldProduct.save();
     });
 
-    let deliveryPrice = 0;
-    if (orderArr.sum_price > 1000) {
-      deliveryPrice = calculateDeliveryPrice();
-    }
     const result = await order.update(
       {
         status: status.PENDING,

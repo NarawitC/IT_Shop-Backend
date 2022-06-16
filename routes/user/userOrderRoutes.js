@@ -10,5 +10,4 @@ router.patch(
   orderController.updateOrderToPending
 );
 router.get('/inCartOrder', orderController.getInCartOrder);
-
 module.exports = router;
