@@ -9,7 +9,6 @@ const createError = require('../../utils/createError');
 const fs = require('fs');
 
 const status = require('../../config/constants');
-const calculateDeliveryPrice = require('../../services/calculateDeliveryPrice');
 const cloudinary = require('../../utils/cloundinary');
 
 exports.createOrderAndDeleteInCartOrder = async (req, res, next) => {
