@@ -12,9 +12,8 @@ const status = require('../../config/constants');
 const cloudinary = require('../../utils/cloundinary');
 
 exports.createOrderAndDeleteInCartOrder = async (req, res, next) => {
+  const transaction = await sequelize.transaction();
   try {
-    const transaction = await sequelize.transaction();
-
     const { id } = req.user;
     const user = await User.findOne({ where: { id } });
     if (!user) {
@@ -35,11 +34,13 @@ exports.createOrderAndDeleteInCartOrder = async (req, res, next) => {
     });
     await transaction.commit();
   } catch (err) {
+    await transaction.rollback();
     next(err);
   }
 };
 
 exports.updateOrderToPending = async (req, res, next) => {
+  const transaction = await sequelize.transaction();
   try {
     const { id } = req.user;
     const { deliveryPrice } = req.body;
@@ -55,12 +56,13 @@ exports.updateOrderToPending = async (req, res, next) => {
       if (req.files.paymentSlip) {
         const result = await cloudinary.upload(req.files.paymentSlip[0].path);
         imageUrl.paymentSlip = result.secure_url;
-      } else {
-        createError('Payment Slip is invalid', 400);
       }
+      //| Production uncomment this if you want to upload image
+      // else {
+      //   createError('Payment Slip is invalid', 400);
+      // }
     }
     const { paymentSlip } = imageUrl;
-    const transaction = await sequelize.transaction();
 
     const order = await Order.findOne({
       where: {
