@@ -58,7 +58,7 @@ exports.adminSignIn = async (req, res, next) => {
       createError('invalid credential', 400);
     }
 
-    const token = genToken({ id: admin.id });
+    const token = genToken({ id: admin.id, role: 'admin' });
     res.json({ token });
   } catch (err) {
     next(err);

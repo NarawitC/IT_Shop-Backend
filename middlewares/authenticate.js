@@ -14,16 +14,18 @@ exports.user = async (req, res, next) => {
       createError('You are unauthorized', 401);
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    const user = await User.findOne({
-      attributes: { exclude: ['password'] },
-      where: { id: payload.id },
-    });
-    if (!user) {
-      createError('You are unauthorized', 401);
-    }
-    // console.log(user);
-    req.user = user;
 
+    if (payload.role === 'user') {
+      const user = await User.findOne({
+        attributes: { exclude: ['password'] },
+        where: { id: payload.id },
+      });
+      if (!user) {
+        createError('You are unauthorized', 401);
+      }
+      // console.log(user);
+      req.user = user;
+    }
     next();
   } catch (err) {
     next(err);
@@ -41,15 +43,17 @@ exports.admin = async (req, res, next) => {
       createError('You are unauthorized', 401);
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    const admin = await Admin.findOne({
-      attributes: { exclude: ['password'] },
-      where: { id: payload.id },
-    });
-    if (!admin) {
-      createError('You are unauthorized', 401);
+
+    if (payload.role === 'admin') {
+      const admin = await Admin.findOne({
+        attributes: { exclude: ['password'] },
+        where: { id: payload.id },
+      });
+      if (!admin) {
+        createError('You are unauthorized', 401);
+      }
+      req.admin = admin;
     }
-    // console.log(admin);
-    req.admin = admin;
     next();
   } catch (err) {
     next(err);

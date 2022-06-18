@@ -135,50 +135,52 @@ exports.updateOrderToPending = async (req, res, next) => {
 
 exports.getInCartOrder = async (req, res, next) => {
   try {
-    const { id } = req.user;
-    const order = await Order.findOne({
-      where: {
-        userId: id,
-        status: status.IN_CART,
-      },
-      include: [
-        {
-          model: OrderItem,
-          include: [
-            {
-              model: Product,
-            },
-          ],
+    if (req.user) {
+      const { id } = req.user;
+      const order = await Order.findOne({
+        where: {
+          userId: id,
+          status: status.IN_CART,
         },
-      ],
-    });
-    // if no order create empty order
-    function createEmptyOrder() {
-      const order = {
-        id: null,
-        status: status.IN_CART,
-        userId: id,
-        productPrice: 0,
-        deliveryPrice: 0,
-        paymentPrice: 0,
-        totalPrice: 0,
-        createdAt: null,
-        updatedAt: null,
-        OrderItems: [],
-      };
-      return order;
-    }
-    if (!order) {
-      console.log(createEmptyOrder());
+        include: [
+          {
+            model: OrderItem,
+            include: [
+              {
+                model: Product,
+              },
+            ],
+          },
+        ],
+      });
+      // if no order create empty order
+      function createEmptyOrder() {
+        const order = {
+          id: null,
+          status: status.IN_CART,
+          userId: id,
+          productPrice: 0,
+          deliveryPrice: 0,
+          paymentPrice: 0,
+          totalPrice: 0,
+          createdAt: null,
+          updatedAt: null,
+          OrderItems: [],
+        };
+        return order;
+      }
+      if (!order) {
+        console.log(createEmptyOrder());
+        res.status(200).json({
+          message: 'No order found',
+          order: createEmptyOrder(),
+        });
+      }
       res.status(200).json({
-        message: 'No order found',
-        order: createEmptyOrder(),
+        message: 'Order found',
+        order,
       });
     }
-    res.status(200).json({
-      message: 'Order found',
-      order,
-    });
   } catch (err) {
     next(err);
   }

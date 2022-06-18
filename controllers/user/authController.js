@@ -74,7 +74,7 @@ exports.userSignIn = async (req, res, next) => {
       createError('Invalid credential', 400);
     }
 
-    const token = genToken({ id: user.id });
+    const token = genToken({ id: user.id, role: 'user' });
     res.json({ token });
   } catch (err) {
     next(err);

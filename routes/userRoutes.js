@@ -13,8 +13,8 @@ router.use('/auth', userAuthRouter);
 router.use('/user', authenticate.user, userRouter);
 router.use('/order', authenticate.user, orderRouter);
 router.use('/orderItem', authenticate.user, orderItemRouter);
-router.use('/product', authenticate.user, productRouter);
-router.use('/category', authenticate.user, categoryRouter);
+router.use('/product', productRouter);
+router.use('/category', categoryRouter);
 router.use('/subCategory', authenticate.user, subCategoryRouter);
 
 module.exports = router;
