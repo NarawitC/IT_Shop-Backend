@@ -36,27 +36,23 @@ exports.createProduct = async (req, res, next) => {
         createError('Properties is less than 2000 letter', 400);
       }
     }
-
     const imageUrl = {};
     if (req.files) {
       if (req.files.mainPicture) {
+        // console.log(req.files.mainPicture[0].path);
         const result = await cloudinary.upload(req.files.mainPicture[0].path);
-
         imageUrl.mainPicture = result.secure_url;
       }
       if (req.files.subPicture1) {
         const result = await cloudinary.upload(req.files.subPicture1[0].path);
-
         imageUrl.subPicture1 = result.secure_url;
       }
       if (req.files.subPicture2) {
         const result = await cloudinary.upload(req.files.subPicture2[0].path);
-
         imageUrl.subPicture2 = result.secure_url;
       }
       if (req.files.subPicture3) {
         const result = await cloudinary.upload(req.files.subPicture3[0].path);
-
         imageUrl.subPicture3 = result.secure_url;
       }
       if (req.files.subPicture4) {

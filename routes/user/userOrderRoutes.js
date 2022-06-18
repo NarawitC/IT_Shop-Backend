@@ -6,7 +6,10 @@ const upload = require('../../middlewares/upload');
 router.patch('/createOrder', orderController.createOrderAndDeleteInCartOrder);
 router.patch(
   '/toPending',
-  upload.fields([{ name: 'paymentSlip', maxCount: 1 }]),
+  upload.fields([
+    { name: 'paymentSlip', maxCount: 1 },
+    { name: 'deliveryPrice', maxCount: 1 },
+  ]),
   orderController.updateOrderToPending
 );
 router.get('/inCartOrder', orderController.getInCartOrder);
