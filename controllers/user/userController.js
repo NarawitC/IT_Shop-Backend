@@ -97,8 +97,11 @@ exports.updateUserInfo = async (req, res, next) => {
         createError('Password did not match', 400);
       }
     }
-    const hashedPassword = await bcryptjs.hash(input.password, 12);
-    input.password = hashedPassword;
+
+    if (input.password) {
+      const hashedPassword = await bcryptjs.hash(input.password, 12);
+      input.password = hashedPassword;
+    }
 
     if (input.phoneNumber) {
       const isPhoneNumber = validator.isMobilePhone(
