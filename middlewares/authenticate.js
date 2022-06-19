@@ -23,7 +23,6 @@ exports.user = async (req, res, next) => {
       if (!user) {
         createError('You are unauthorized', 401);
       }
-      // console.log(user);
       req.user = user;
     }
     next();

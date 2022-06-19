@@ -17,7 +17,7 @@ const uploadAndDestroyPictureFromCloundinary = require('../../utils/uploadAnddes
 exports.createProduct = async (req, res, next) => {
   try {
     console.log('\n\n\n');
-    console.log(req.body);
+    // console.log(req.body);
     console.log(req.files);
     const {
       name,

@@ -8,12 +8,16 @@ exports.getAllOrders = async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ['id'],
+          attributes: { exclude: ['password'] },
         },
 
         {
           model: OrderItem,
-          attributes: ['id', 'quantity', 'productId', 'pricePerUnit'],
+          include: [
+            {
+              model: Product,
+            },
+          ],
         },
       ],
     });
@@ -57,6 +61,7 @@ exports.getOrderById = async (req, res, next) => {
 
 exports.updateOrderToConfirmed = async (req, res, next) => {
   try {
+    console.log('first');
     const { id: confirmedAdminId } = req.admin;
     const { orderId } = req.params;
     const order = await Order.findOne({
