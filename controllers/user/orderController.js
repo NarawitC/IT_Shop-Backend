@@ -58,10 +58,10 @@ exports.updateOrderToPending = async (req, res, next) => {
         const result = await cloudinary.upload(req.files.paymentSlip[0].path);
         imageUrl.paymentSlip = result.secure_url;
       }
-      //| Production uncomment this if you want to upload image
-      else {
-        createError('Payment Slip is invalid', 400);
-      }
+      //* Production uncomment this if you want to upload image
+      // else {
+      //   createError('Payment Slip is invalid', 400);
+      // }
     }
     const { paymentSlip } = imageUrl;
 
